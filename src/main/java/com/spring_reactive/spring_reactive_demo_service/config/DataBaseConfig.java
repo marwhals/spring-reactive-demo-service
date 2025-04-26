@@ -1,4 +1,4 @@
-package com.spring_reactive.spring_reactive_demo_service;
+package com.spring_reactive.spring_reactive_demo_service.config;
 
 import io.r2dbc.spi.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Value;
