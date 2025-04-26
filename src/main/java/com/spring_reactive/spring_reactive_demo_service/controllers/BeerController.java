@@ -14,14 +14,15 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class BeerController {
 
-    public static final String BEER_PATH = "/api/v1/beer";
+    public static final String BEER_PATH = "/api/v2/beer";
     public static final String BEER_PATH_ID = BEER_PATH + "/{beerId}";
 
     private final BeerService beerService;
 
     @DeleteMapping(BEER_PATH_ID)
     Mono<ResponseEntity<Void>> deleteById(@PathVariable Integer beerId) {
-        return beerService.deleteBeerById(beerId).map(response -> ResponseEntity
+        return beerService.deleteBeerById(beerId)
+                .thenReturn(ResponseEntity
                 .noContent().build());
     }
 
@@ -37,7 +38,7 @@ public class BeerController {
                                     @Validated @RequestBody BeerDTO beerDTO) {
         beerService.updateBeer(beerId, beerDTO).subscribe();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
 
     }
 
