@@ -78,7 +78,7 @@
 				<configuration>
 					<annotationProcessorPaths>
 						<path>
-							<groupId>org.projectlombok</groupId>
+							<groupId>org.projectlombok</groupId> <!-- Do I need this for Java 21?-->
 							<artifactId>lombok</artifactId>
 						</path>
 					</annotationProcessorPaths>
