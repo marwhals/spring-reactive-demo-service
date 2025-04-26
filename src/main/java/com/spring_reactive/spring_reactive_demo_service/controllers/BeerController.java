@@ -20,21 +20,21 @@ public class BeerController {
     private final BeerService beerService;
 
     @DeleteMapping(BEER_PATH_ID)
-    Mono<ResponseEntity<Void>> deleteById(@PathVariable Integer beerId){
+    Mono<ResponseEntity<Void>> deleteById(@PathVariable Integer beerId) {
         return beerService.deleteBeerById(beerId).map(response -> ResponseEntity
                 .noContent().build());
     }
 
     @PatchMapping(BEER_PATH_ID)
     Mono<ResponseEntity<Void>> patchExistingBeer(@PathVariable Integer beerId,
-                                                 @Validated @RequestBody BeerDTO beerDTO){
+                                                 @Validated @RequestBody BeerDTO beerDTO) {
         return beerService.patchBeer(beerId, beerDTO)
                 .map(updatedDto -> ResponseEntity.ok().build());
     }
 
     @PutMapping(BEER_PATH_ID)
     ResponseEntity<Void> updateBeer(@PathVariable("beerId") Integer beerId,
-                                          @RequestBody BeerDTO beerDTO) {
+                                    @Validated @RequestBody BeerDTO beerDTO) {
         beerService.updateBeer(beerId, beerDTO).subscribe();
 
         return ResponseEntity.ok().build();
@@ -45,11 +45,11 @@ public class BeerController {
     Mono<ResponseEntity<Void>> createNewBeer(BeerDTO beerDTO) {
         return beerService.saveNewBeer(beerDTO).map(
                 savedDto -> ResponseEntity.created(
-                UriComponentsBuilder.fromHttpUrl("http://localhost:8080" + BEER_PATH + "/" + savedDto
-                        .getId())
-                        .build()
-                        .toUri())
-                .build());
+                                UriComponentsBuilder.fromHttpUrl("http://localhost:8080" + BEER_PATH + "/" + savedDto
+                                                .getId())
+                                        .build()
+                                        .toUri())
+                        .build());
     }
 
     @GetMapping(BEER_PATH_ID)
